@@ -2,28 +2,23 @@ package conta_bancaria;
 
 import java.util.Scanner;
 import conta.util.Cores;
-import conta_bancaria.model.Conta; 
+import conta_bancaria.controller.ContaController;
+import conta_bancaria.model.Conta;
+import conta_bancaria.model.ContaCorrente;
+import conta_bancaria.model.ContaPoupanca;
 
 public class Menu {
+	
+	private static final Scanner leia = new Scanner(System.in);
+	private static final ContaController contaController = new ContaController();
+	
 	public static void main(String[] args) {
 
-		Conta c1 = new Conta(1, 123, 1, "Adriana Sanches", 10000.0f);
-		c1.visualizar();
 		
-		c1.setSaldo(15000.0f);
-		c1.setTitular("Maria Joaquina");
-		c1.visualizar();
-		
-		c1.sacar(12000.0f);
-		c1.visualizar();
-		
-		c1.depositar(5000.0f);
-		c1.visualizar();
-		
-		
-		Scanner leia = new Scanner(System.in);
 		int opcao;
-
+		
+		//Criar dados de testes
+				
 		while (true) {
 
 			System.out.println(Cores.ANSI_BLACK_BACKGROUND + Cores.TEXT_YELLOW_BOLD);
@@ -61,6 +56,9 @@ public class Menu {
 				break;
 			case 2:
 				System.out.println(Cores.TEXT_YELLOW + "\nListar todas as Contas\n" + Cores.TEXT_RESET);
+				
+				listarContas();
+				
 				break;
 			case 3:
 				System.out.println(Cores.TEXT_YELLOW + "\nConsultar dados da Conta - por número\n" + Cores.TEXT_RESET);
@@ -94,4 +92,14 @@ public class Menu {
 		System.out.println("║" + Cores.TEXT_WHITE + " https://github.com/Felipe-Lopes-code                 " + Cores.TEXT_YELLOW + "║");
 		System.out.println("╚══════════════════════════════════════════════════════╝\n" + Cores.TEXT_RESET);
 	}
+	
+	public static void criarContasTeste() {
+		contaController.cadastrar(new ContaCorrente(1, 123, 1, "Luizinho Gonzaga", 100000.0f, 1000.0f));
+		contaController.cadastrar(new ContaPoupanca(2, 123, 1, "Andorinha Goose", 120000.0f, 14));
+	}
+	
+	public static void listarContas() {
+		contaController.listarTodas();
+	}
+	
 }
